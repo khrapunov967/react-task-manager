@@ -1,9 +1,11 @@
+import Header from "./components/Header";
+import RootLayout from "./components/RootLayout";
 
 const App: React.FC = () => {
   return (
-    <div className="app">
-      work
-    </div>
+    <RootLayout>
+      <Header />
+    </RootLayout>
   );
 };
 
