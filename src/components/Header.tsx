@@ -2,7 +2,7 @@ import GitHubIcon from "../assets/icons/github-icon.svg";
 
 const Header: React.FC = () => {
     return (
-        <header className="w-full flex justify-between items-center border-2 p-3">
+        <header className="w-full flex justify-between items-center p-3">
             <p className="text-4xl font-bold text-[#2c2c2c]">
                 Task.<span className="text-blue-400">in</span>
             </p>
