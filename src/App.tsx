@@ -17,14 +17,18 @@ const App: React.FC = () => {
     e.preventDefault();
   };
 
-  const dragLeaveHandler = (e: DragEvent<HTMLDivElement>) => {};
+  const dragLeaveHandler = (e: DragEvent<HTMLDivElement>) => {
+    // remove shadow
+  };
 
   const dragStartHandler = (e: DragEvent<HTMLDivElement>, board: { id: number; title: string; items: { id: number; title: string; }[]; }, item: { id: number; title: string; }) => {
     setCurrentBoard(board);
     setCurrentTask(item);
   };
 
-  const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {};
+  const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
+    // remove shadow 
+  };
 
   const dropHandler = (e: DragEvent<HTMLDivElement>, board: { id: number; title: string; items: { id: number; title: string; }[]; }, item: { id: number; title: string; }) => {
     e.preventDefault();
