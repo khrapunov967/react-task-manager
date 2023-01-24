@@ -1,6 +1,7 @@
-import { DragEvent, useState } from "react";
+import { useState } from "react";
 import { Board, Item } from "../types/data";
-import { dragEndHandlerFunction, dragLeaveHandlerFunction, dragOverHandlerFunction, dragStartHandlerFunction, dropCardHandlerFunction, dropHandlerFunction } from "../types/funcs";
+import * as funcs from "../types/funcs";
+import BoardComponent from "./BoardComponent";
 import ItemComponent from "./ItemComponent";
 
 const WorkingArea: React.FC = () => {
@@ -17,24 +18,24 @@ const WorkingArea: React.FC = () => {
     
 
 
-    const dragOverHandler: dragOverHandlerFunction = (e) => {
+    const dragOverHandler: funcs.dragOverHandlerFunction = (e) => {
         e.preventDefault();
     };
     
-    const dragLeaveHandler: dragLeaveHandlerFunction = (e) => {
+    const dragLeaveHandler: funcs.dragLeaveHandlerFunction = (e) => {
         // remove shadow
     };
     
-    const dragStartHandler: dragStartHandlerFunction = (e, board, item) => {
+    const dragStartHandler: funcs.dragStartHandlerFunction = (e, board, item) => {
         setCurrentBoard(board);
         setCurrentItem(item);
     };
     
-    const dragEndHandler: dragEndHandlerFunction = (e) => {
+    const dragEndHandler: funcs.dragEndHandlerFunction = (e) => {
         // remove shadow 
     };
     
-    const dropHandler: dropHandlerFunction = (e, board, item) => {
+    const dropHandler: funcs.dropHandlerFunction = (e, board, item) => {
         e.preventDefault();
         e.stopPropagation();
         
@@ -57,7 +58,7 @@ const WorkingArea: React.FC = () => {
         }));
     };
     
-    const dropCardHandler: dropCardHandlerFunction = (e, board) => {
+    const dropCardHandler: funcs.dropCardHandlerFunction = (e, board) => {
         board.items.push(currentItem);
 
         const currentIndex = currentBoard.items.indexOf(currentItem);
@@ -76,53 +77,35 @@ const WorkingArea: React.FC = () => {
         }));
     };
 
-
     return (
         <section className="w-full flex justify-center gap-3">
             {boards.map(board => {
                 return (
-                    <div 
-                        key={board.id} 
-                        className={"border-2 p-3 pt-0"}
-                        onDragOver={(e: DragEvent<HTMLDivElement>) => dragOverHandler(e)}
-                        onDrop={(e: DragEvent<HTMLDivElement>) => dropCardHandler(e, board)}
+                    <BoardComponent
+                        key={board.id}
+                        board={board}
+                        title={board.title}
+                        onDragOver={dragOverHandler}
+                        onDrop={dropCardHandler}
                     >
-                        <p className="font-bold text-2xl mb-10">
-                            {board.title}
-                        </p>
-
-                        <div className="flex flex-col gap-2">
-                            {board.items.map(item => {
-                        
-                            return (
-                                // <div 
-                                //     onDragOver={(e: React.DragEvent<HTMLDivElement>) => dragOverHandler(e)}
-                                //     onDragLeave={(e: React.DragEvent<HTMLDivElement>) => dragLeaveHandler(e)}
-                                //     onDragStart={(e: React.DragEvent<HTMLDivElement>) => dragStartHandler(e, board, item)}
-                                //     onDragEnd={(e: React.DragEvent<HTMLDivElement>) => dragEndHandler(e)}
-                                //     onDrop={(e: React.DragEvent<HTMLDivElement>) => dropHandler(e, board, item)}
-                                //     className="text-xl border-[1px] flex justify-center cursor-grabbing" 
-                                //     key={item.id}
-                                //     draggable={true}
-                                // >
-                                //     {item.title}
-                                // </div>
-
-                                <ItemComponent
-                                    onDragOver={dragOverHandler}
-                                    onDragLeave={dragLeaveHandler}
-                                    onDragStart={dragStartHandler}
-                                    onDragEnd={dragEndHandler}
-                                    onDrop={dropHandler}
-                                    board={board}
-                                    item={item}
-                                    title={item.title}
-                                    key={item.id}
-                                />
-                            )
-                            })}
-                        </div>
-                    </div>
+                        {
+                            board.items.map(item => {
+                                return (
+                                    <ItemComponent
+                                        onDragOver={dragOverHandler}
+                                        onDragLeave={dragLeaveHandler}
+                                        onDragStart={dragStartHandler}
+                                        onDragEnd={dragEndHandler}
+                                        onDrop={dropHandler}
+                                        board={board}
+                                        item={item}
+                                        title={item.title}
+                                        key={item.id}
+                                    />
+                                );
+                            })
+                        }
+                    </BoardComponent>
                 )
             })}
         </section>

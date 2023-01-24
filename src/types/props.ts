@@ -4,7 +4,9 @@ import {
     dragLeaveHandlerFunction, 
     dragOverHandlerFunction,
     dragStartHandlerFunction,
+    dropCardHandlerFunction,
     dropHandlerFunction
+
 } from "./funcs";
 
 export interface RootLayoutProps {
@@ -20,4 +22,12 @@ export interface ItemComponentProps {
     onDragStart: dragStartHandlerFunction;
     onDragEnd: dragEndHandlerFunction;
     onDrop: dropHandlerFunction;
+};
+
+export interface BoardComponentProps {
+    title: string;
+    onDragOver: dragOverHandlerFunction;
+    onDrop: dropCardHandlerFunction;
+    children: React.ReactNode[];
+    board: Board;
 };
