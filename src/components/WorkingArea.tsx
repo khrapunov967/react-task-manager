@@ -1,22 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Board, Item } from "../types/data";
 import * as funcs from "../types/funcs";
 import BoardComponent from "./BoardComponent";
+import CreateItemComponent from "./CreateItemComponent";
 import ItemComponent from "./ItemComponent";
 
 const WorkingArea: React.FC = () => {
 
-    const [boards, setBoards] = useState<Board[]>([
-        {id: 1, title: "Сделать", items: [{id: 1, title: "Learn 1"}, {id: 2, title: "Learn 2"}]},
-        {id: 2, title: "Проверить", items: [{id: 3, title: "Learn 1"}, {id: 4, title: "Learn 2"}]},
-        {id: 3, title: "Сделано", items: [{id: 5, title: "Learn 1"}, {id: 6, title: "Learn 2"}]},
+    const [boards, setBoards] = useState<Board[]>(JSON.parse(localStorage.getItem("boards") || "") || [
+        {id: 1, title: "Сделать", items: []},
+        {id: 2, title: "Проверить", items: []},
+        {id: 3, title: "Сделано", items: []},
     ]);
 
-    const [currentBoard, setCurrentBoard] = useState<Board>({id: 0, title: "", items: [{id: 1, title: "Learn 1"}, {id: 2, title: "Learn 2"}]});
+    const [currentBoard, setCurrentBoard] = useState<Board>({id: 0, title: "", items: []});
     
     const [currentItem, setCurrentItem] = useState<Item>({id: 0, title: ""});
-    
 
+    useEffect(() => {
+        localStorage.setItem("boards", JSON.stringify(boards));
+    }, [boards]);
+    
+    const addNewItem = (title: string) => {
+        const newItem: Item = {
+            id: Date.now(),
+            title
+        };
+
+        boards[0].items.push(newItem);
+
+        setBoards(boards.map(b => b));
+    };
 
     const dragOverHandler: funcs.dragOverHandlerFunction = (e) => {
         e.preventDefault();
@@ -78,36 +92,42 @@ const WorkingArea: React.FC = () => {
     };
 
     return (
-        <section className="w-full flex justify-center gap-3">
-            {boards.map(board => {
-                return (
-                    <BoardComponent
-                        key={board.id}
-                        board={board}
-                        title={board.title}
-                        onDragOver={dragOverHandler}
-                        onDrop={dropCardHandler}
-                    >
-                        {
-                            board.items.map(item => {
-                                return (
-                                    <ItemComponent
-                                        onDragOver={dragOverHandler}
-                                        onDragLeave={dragLeaveHandler}
-                                        onDragStart={dragStartHandler}
-                                        onDragEnd={dragEndHandler}
-                                        onDrop={dropHandler}
-                                        board={board}
-                                        item={item}
-                                        title={item.title}
-                                        key={item.id}
-                                    />
-                                );
-                            })
-                        }
-                    </BoardComponent>
-                )
-            })}
+        <section className="w-full flex flex-col items-center justify-center gap-3">
+            <CreateItemComponent 
+                addNewItem={addNewItem}
+            />
+
+            <div className="flex gap-3">
+                {boards.map(board => {
+                    return (
+                        <BoardComponent
+                            key={board.id}
+                            board={board}
+                            title={board.title}
+                            onDragOver={dragOverHandler}
+                            onDrop={dropCardHandler}
+                        >
+                            {
+                                board.items.map(item => {
+                                    return (
+                                        <ItemComponent
+                                            onDragOver={dragOverHandler}
+                                            onDragLeave={dragLeaveHandler}
+                                            onDragStart={dragStartHandler}
+                                            onDragEnd={dragEndHandler}
+                                            onDrop={dropHandler}
+                                            board={board}
+                                            item={item}
+                                            title={item.title}
+                                            key={item.id}
+                                        />
+                                    );
+                                })
+                            }
+                        </BoardComponent>
+                    );
+                })}
+            </div>
         </section>
     );
 };
