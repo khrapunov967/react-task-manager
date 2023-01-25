@@ -31,3 +31,7 @@ export interface BoardComponentProps {
     children: React.ReactNode[];
     board: Board;
 };
+
+export interface CreateItemComponentProps {
+    addNewItem: (title: string) => void;
+};
