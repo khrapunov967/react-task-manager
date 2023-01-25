@@ -34,10 +34,11 @@ const WorkingArea: React.FC = () => {
 
     const dragOverHandler: funcs.dragOverHandlerFunction = (e) => {
         e.preventDefault();
+        e.stopPropagation();
     };
     
     const dragLeaveHandler: funcs.dragLeaveHandlerFunction = (e) => {
-        // remove shadow
+        // e.currentTarget.style.boxShadow = "none";
     };
     
     const dragStartHandler: funcs.dragStartHandlerFunction = (e, board, item) => {
@@ -46,7 +47,7 @@ const WorkingArea: React.FC = () => {
     };
     
     const dragEndHandler: funcs.dragEndHandlerFunction = (e) => {
-        // remove shadow 
+        // e.currentTarget.style.boxShadow = "none"; 
     };
     
     const dropHandler: funcs.dropHandlerFunction = (e, board, item) => {
