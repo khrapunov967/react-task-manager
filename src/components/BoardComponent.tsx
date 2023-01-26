@@ -3,7 +3,7 @@ import { BoardComponentProps } from "../types/props";
 const BoardComponent: React.FC<BoardComponentProps> = ({title, onDragOver, onDrop, children, board}) => {
     return (
         <div
-            className="border-2 p-3 pt-0"
+            className="border-[1px] rounded-lg w-[250px] h-[400px] flex flex-col items-center py-3 overflow-y-auto"
             onDragOver={onDragOver}
             onDrop={(e) => onDrop(e, board)}
         >
@@ -11,8 +11,8 @@ const BoardComponent: React.FC<BoardComponentProps> = ({title, onDragOver, onDro
                 {title}
             </p>
 
-            <div className="flex flex-col gap-2">
-                {children}
+            <div className="flex flex-col items-center gap-2 w-full">
+                {children.length ? children : <p className="text-stone-600">Нет задач</p>}
             </div>
         </div>
     );

@@ -14,13 +14,13 @@ const CreateItemComponent: React.FC<CreateItemComponentProps> = ({addNewItem}) =
     };
 
     return (
-        <div className="flex gap-3">
+        <div className="flex gap-3 mb-10">
             <input
                 value={title}
                 onChange={(e) => setTitle(e.target.value)} 
                 type="text"
                 placeholder="Название задачи" 
-                className="border-[1px] p-2 text-lg outline-none rounded-2xl focus:shadow-md transition-all duration-300"
+                className="border-[1px] p-2 text-lg outline-none rounded-2xl focus:shadow-sm transition-all duration-300"
             />
 
             <button

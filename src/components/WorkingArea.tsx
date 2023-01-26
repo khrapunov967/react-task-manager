@@ -32,6 +32,15 @@ const WorkingArea: React.FC = () => {
         setBoards(boards.map(b => b));
     };
 
+    const removeItem = (id: number) => {
+        setBoards(boards.map(board => {
+            return {
+                ...board,
+                items: board.items.filter(item => item.id !== id)
+            }
+        }));
+    };
+
     const dragOverHandler: funcs.dragOverHandlerFunction = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -98,7 +107,7 @@ const WorkingArea: React.FC = () => {
                 addNewItem={addNewItem}
             />
 
-            <div className="flex gap-3">
+            <div className="flex gap-8">
                 {boards.map(board => {
                     return (
                         <BoardComponent
@@ -121,6 +130,7 @@ const WorkingArea: React.FC = () => {
                                             item={item}
                                             title={item.title}
                                             key={item.id}
+                                            removeItem={removeItem}
                                         />
                                     );
                                 })
