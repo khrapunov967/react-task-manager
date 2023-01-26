@@ -7,11 +7,12 @@ import ItemComponent from "./ItemComponent";
 
 const WorkingArea: React.FC = () => {
 
-    const [boards, setBoards] = useState<Board[]>(JSON.parse(localStorage.getItem("boards") || "") || [
-        {id: 1, title: "Сделать", items: []},
+    const [boards, setBoards] = useState<Board[]>(
+        localStorage.getItem("boards") ? JSON.parse(localStorage.getItem("boards") || "") : 
+        [{id: 1, title: "Сделать", items: []},
         {id: 2, title: "Проверить", items: []},
-        {id: 3, title: "Сделано", items: []},
-    ]);
+        {id: 3, title: "Сделано", items: []}]
+    );
 
     const [currentBoard, setCurrentBoard] = useState<Board>({id: 0, title: "", items: []});
     
