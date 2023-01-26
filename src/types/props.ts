@@ -22,6 +22,7 @@ export interface ItemComponentProps {
     onDragStart: dragStartHandlerFunction;
     onDragEnd: dragEndHandlerFunction;
     onDrop: dropHandlerFunction;
+    removeItem: (id: number) => void;
 };
 
 export interface BoardComponentProps {
