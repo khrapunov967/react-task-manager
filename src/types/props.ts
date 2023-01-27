@@ -1,7 +1,5 @@
 import { Board, Item } from "./data";
 import { 
-    dragEndHandlerFunction,
-    dragLeaveHandlerFunction, 
     dragOverHandlerFunction,
     dragStartHandlerFunction,
     dropCardHandlerFunction,
@@ -18,9 +16,7 @@ export interface ItemComponentProps {
     board: Board;
     item: Item;
     onDragOver: dragOverHandlerFunction;
-    onDragLeave: dragLeaveHandlerFunction;
     onDragStart: dragStartHandlerFunction;
-    onDragEnd: dragEndHandlerFunction;
     onDrop: dropHandlerFunction;
     removeItem: (id: number) => void;
 };

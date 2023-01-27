@@ -5,9 +5,7 @@ const ItemComponent: React.FC<ItemComponentProps> = (props) => {
     return (
         <div
             onDragOver={props.onDragOver}
-            onDragLeave={props.onDragLeave}
             onDragStart={(e: React.DragEvent<HTMLDivElement>) => props.onDragStart(e, props.board, props.item)}
-            onDragEnd={props.onDragEnd}
             onDrop={(e: React.DragEvent<HTMLDivElement>) => props.onDrop(e, props.board, props.item)}
             className="text-xl border-[1px] flex justify-between items-center p-1 rounded-lg cursor-grabbing w-full max-w-[90%] transition-shadow duration-300 hover:shadow-sm"
             draggable={true}

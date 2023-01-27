@@ -15,13 +15,14 @@ const WorkingArea: React.FC = () => {
     );
 
     const [currentBoard, setCurrentBoard] = useState<Board>({id: 0, title: "", items: []});
-    
     const [currentItem, setCurrentItem] = useState<Item>({id: 0, title: ""});
 
     useEffect(() => {
         localStorage.setItem("boards", JSON.stringify(boards));
     }, [boards]);
     
+
+
     const addNewItem = (title: string) => {
         const newItem: Item = {
             id: Date.now(),
@@ -47,17 +48,9 @@ const WorkingArea: React.FC = () => {
         e.stopPropagation();
     };
     
-    const dragLeaveHandler: funcs.dragLeaveHandlerFunction = (e) => {
-        // e.currentTarget.style.boxShadow = "none";
-    };
-    
     const dragStartHandler: funcs.dragStartHandlerFunction = (e, board, item) => {
         setCurrentBoard(board);
         setCurrentItem(item);
-    };
-    
-    const dragEndHandler: funcs.dragEndHandlerFunction = (e) => {
-        // e.currentTarget.style.boxShadow = "none"; 
     };
     
     const dropHandler: funcs.dropHandlerFunction = (e, board, item) => {
@@ -123,9 +116,7 @@ const WorkingArea: React.FC = () => {
                                     return (
                                         <ItemComponent
                                             onDragOver={dragOverHandler}
-                                            onDragLeave={dragLeaveHandler}
                                             onDragStart={dragStartHandler}
-                                            onDragEnd={dragEndHandler}
                                             onDrop={dropHandler}
                                             board={board}
                                             item={item}
