@@ -8,11 +8,13 @@ const Header: React.FC = () => {
             </p>
 
             <div className="flex gap-3">
-                <img 
-                    src={GitHubIcon} 
-                    alt="GitHub Link" 
-                    className="w-[42px] h-[42px] cursor-pointer"
-                />
+                <a href="https://github.com/khrapunov967/react-task-manager" target="_blank">
+                    <img 
+                        src={GitHubIcon} 
+                        alt="GitHub Link" 
+                        className="w-[42px] h-[42px] cursor-pointer"
+                    />
+                </a>
             </div>
         </header>
     );
